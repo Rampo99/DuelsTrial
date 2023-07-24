@@ -1,0 +1,14 @@
+name: DuelsTrial
+main: net.rampo.duelstrial.DuelsTrial
+version: 0.1
+author: Rampo
+commands:
+  duel:
+    description: DuelsTrial command
+    usage: /duel <name> [kit]
+  stats:
+    description: DuelsTrial stats command
+    usage: /stats <name>
+  accept:
+    description: DuelsTrial accept command
+    usage: /accept <name>

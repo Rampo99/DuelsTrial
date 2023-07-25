@@ -96,7 +96,7 @@ public class DuelManager {
     }
 
     public static boolean isInvited(UUID inviter, UUID invited){
-        Duel duel = invites.get(invited);
+        Duel duel = invites.get(inviter);
         if(duel == null){
             return false;
         }

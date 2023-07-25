@@ -98,6 +98,7 @@ public class Duel {
             else player1.sendMessage(Component.text("§cYou lost the duel!"));
             clearInventory(player1);
             player1.teleport(oldPlayer1Location);
+            player1.setHealth(20);
         }
 
         if(player2 != null){
@@ -105,6 +106,7 @@ public class Duel {
             else player2.sendMessage(Component.text("§cYou lost the duel!"));
             clearInventory(player2);
             player2.teleport(oldPlayer2Location);
+            player2.setHealth(20);
         }
         DuelManager.duelsQueue.poll();
         DuelManager.startDuel();

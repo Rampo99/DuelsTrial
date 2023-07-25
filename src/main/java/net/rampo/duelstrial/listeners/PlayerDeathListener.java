@@ -6,6 +6,7 @@ import net.rampo.duelstrial.duel.DuelManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
 import java.util.UUID;
@@ -13,20 +14,18 @@ import java.util.UUID;
 public class PlayerDeathListener implements Listener {
 
     @EventHandler
-    public void onDeath(PlayerDeathEvent event){
-        Player player = event.getEntity();
+    public void onDeath(EntityDamageByEntityEvent event){
+
+        if(!(event.getEntity() instanceof Player player)) return;
+        if(!(event.getDamager() instanceof Player killer)) return;
+
+        if(player.getHealth() - event.getFinalDamage() > 0) return;
         UUID uuid = player.getUniqueId();
-        if(player.getKiller() == null) return;
-        Player killer = player.getKiller();
+
         Duel duel = DuelManager.getDuel(uuid);
         if(duel == null) return;
-        event.setKeepInventory(true);
-        Runnable runnable = () -> {
-            player.spigot().respawn();
-            duel.end(killer.getUniqueId(), uuid);
-        };
-
-        DuelsTrial.plugin.getServer().getScheduler().scheduleSyncDelayedTask(DuelsTrial.plugin, runnable, 20);
+        event.setCancelled(true);
+        duel.end(killer.getUniqueId(), uuid);
 
     }
 }

@@ -23,12 +23,19 @@ public class AcceptCommand implements CommandExecutor {
                 player.sendMessage(Component.text("Player not found"));
                 return false;
             }
-            Duel duel = DuelManager.acceptInvite(target.getUniqueId());
-            if(duel == null){
+            boolean result = DuelManager.acceptInvite(target.getUniqueId());
+            if(!result){
                 player.sendMessage(Component.text("You have no pending invites from " + args[0]));
                 return false;
             }
-            duel.start();
+            if(DuelManager.duelsQueue.size() == 1){
+                DuelManager.startDuel();
+            } else {
+                player.sendMessage(Component.text("You have accepted the invite from " + args[0]));
+                player.sendMessage(Component.text("You are now in queue"));
+                target.sendMessage(Component.text(player.getName() + " has accepted your invite"));
+                target.sendMessage(Component.text("You are now in queue"));
+            }
         }
 
 

@@ -1,6 +1,7 @@
 package net.rampo.duelstrial.listeners;
 
 import net.rampo.duelstrial.DuelsTrial;
+import net.rampo.duelstrial.duel.DuelManager;
 import net.rampo.duelstrial.persistence.database.DBUtils;
 import net.rampo.duelstrial.persistence.database.PlayerData;
 import org.bukkit.entity.Player;
@@ -13,6 +14,10 @@ public class PlayerQuitListener implements Listener {
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event){
         Player player = event.getPlayer();
+        player.setInvulnerable(false);
+        DuelManager.removePlayer(player);
+
+
         PlayerData playerData = DuelsTrial.playerData.remove(player.getUniqueId());
         if(playerData != null){
             DBUtils.updatePlayer(playerData);

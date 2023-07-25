@@ -2,6 +2,7 @@ name: DuelsTrial
 main: net.rampo.duelstrial.DuelsTrial
 version: 0.1
 author: Rampo
+api-version: 1.19
 commands:
   duel:
     description: DuelsTrial command

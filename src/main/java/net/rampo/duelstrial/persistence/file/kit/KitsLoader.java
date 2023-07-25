@@ -1,6 +1,7 @@
-package net.rampo.duelstrial.persistence.file;
+package net.rampo.duelstrial.persistence.file.kit;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.java.Log;
 import net.rampo.duelstrial.DuelsTrial;
 import net.rampo.duelstrial.duel.Kit;
 import org.bukkit.inventory.ItemStack;
@@ -18,6 +19,7 @@ public class KitsLoader {
             DuelsTrial.defaultKitName = kitsConfig.defaultKit();
             for (KitContent kitContent : kitsConfig.kits()) {
                 String kitName = kitContent.name();
+                DuelsTrial.log.info(DuelsTrial.prefix + " Loading kit " + kitName + "...");
                 ArmorContent armorContent = kitContent.armorContent();
                 List<InventoryContent> inventoryContent = kitContent.inventoryContent();
 
@@ -29,10 +31,10 @@ public class KitsLoader {
                 DuelsTrial.kits.put(
                         kitName,
                         Kit.builder()
-                        .helmet(armorContent.helmet().itemStack())
-                        .chestPlate(armorContent.chestplate().itemStack())
-                        .leggings(armorContent.leggings().itemStack())
-                        .boots(armorContent.boots().itemStack())
+                        .helmet(armorContent.helmet() == null ? null : armorContent.helmet().itemStack())
+                        .chestPlate(armorContent.chestplate() == null ? null : armorContent.chestplate().itemStack())
+                        .leggings(armorContent.leggings() == null ? null : armorContent.leggings().itemStack())
+                        .boots(armorContent.boots() == null ? null : armorContent.boots().itemStack())
                         .inventoryContent(inventoryContentMap)
                         .build()
                 );

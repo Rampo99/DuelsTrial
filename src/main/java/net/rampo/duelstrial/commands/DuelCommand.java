@@ -27,6 +27,22 @@ public class DuelCommand implements CommandExecutor {
                 player.sendMessage(Component.text("Player not found"));
                 return false;
             }
+            // Check if you're challenging yourself
+            if(target.getUniqueId().equals(player.getUniqueId())){
+                player.sendMessage(Component.text("You can't duel yourself"));
+                return false;
+            }
+            // Check if you're challenging someone who's already in a duel
+            if(DuelManager.isInDuel(target.getUniqueId())){
+                player.sendMessage(Component.text("That player is already in a duel"));
+                return false;
+            }
+            // Check if you're challenging someone who challenged you
+            if(DuelManager.isInvited(target.getUniqueId(), player.getUniqueId())){
+                player.sendMessage(Component.text("That player has already challenged you"));
+                return false;
+            }
+
             DuelManager.addInvite(player.getUniqueId(), target.getUniqueId(),null);
             player.sendMessage(Component.text("You have challenged " + args[0] + " to a duel with kit " + DuelsTrial.defaultKitName));
             target.sendMessage(Component.text(player.getName() + " has challenged you to a duel with kit " + DuelsTrial.defaultKitName));
@@ -50,7 +66,6 @@ public class DuelCommand implements CommandExecutor {
             return true;
         }
 
-        player.sendMessage(Component.text("/duel <player> [kit]"));
         return false;
     }
 }

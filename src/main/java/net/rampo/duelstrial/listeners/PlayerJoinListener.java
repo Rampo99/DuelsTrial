@@ -1,5 +1,6 @@
 package net.rampo.duelstrial.listeners;
 
+import lombok.extern.java.Log;
 import net.rampo.duelstrial.DuelsTrial;
 import net.rampo.duelstrial.persistence.database.DBUtils;
 import net.rampo.duelstrial.persistence.database.PlayerData;
@@ -8,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+@Log
 public class PlayerJoinListener implements Listener {
 
     @EventHandler

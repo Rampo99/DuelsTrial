@@ -19,7 +19,7 @@ public class PlayerData {
     private int winStreak;
     private int currentWinStreak;
 
-    public void addWinStreak() {
+    private void addWinStreak() {
         this.currentWinStreak++;
         if (this.currentWinStreak > this.winStreak) {
             this.winStreak = this.currentWinStreak;
@@ -37,5 +37,19 @@ public class PlayerData {
         }
         return null;
     }
+
+    public void addWin(){
+        this.wins++;
+        this.kills++;
+        this.addWinStreak();
+    }
+
+    public void addLoss(){
+        this.losses++;
+        this.deaths++;
+        this.resetWinStreak();
+    }
+
+
 
 }

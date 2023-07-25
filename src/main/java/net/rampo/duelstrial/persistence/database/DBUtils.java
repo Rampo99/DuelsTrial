@@ -64,7 +64,7 @@ public class DBUtils {
         }
     }
 
-    public static boolean updatePlayer(PlayerData playerData){
+    public static void updatePlayer(PlayerData playerData){
         try {
             Document document = new Document("_id", playerData.getUuid().toString())
                     .append("wins", playerData.getWins())
@@ -73,11 +73,11 @@ public class DBUtils {
                     .append("deaths", playerData.getDeaths())
                     .append("winStreak", playerData.getWinStreak())
                     .append("currentWinStreak", playerData.getCurrentWinStreak());
-            players.updateOne(new Document("_id", playerData.getUuid().toString()), document);
+            players.replaceOne(new Document("_id", playerData.getUuid().toString()), document);
         } catch (Exception e) {
-            return false;
+            log.severe("Failed to update player data for " + playerData.getUuid().toString());
+            e.printStackTrace();
         }
-        return true;
     }
 
     public static PlayerData getPlayer(UUID uuid){
